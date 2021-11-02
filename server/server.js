@@ -2,7 +2,6 @@ require('dotenv').config()
 require('../database/database')
 const express = require ('express')
 const app = express()
-const authRoute = require('../routes/auth.routes')
 const usersRoute = require('../routes/users.routes')
 const loginRoute = require('../routes/login.routes')
 const port = process.env.PORT 
@@ -16,7 +15,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/auth', authRoute)
 app.use('/users', usersRoute)
 app.use('/login', loginRoute)
 
