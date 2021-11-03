@@ -7,11 +7,11 @@ const emailValidation = async (email) =>{
   }
 }
 
-const userValidation = async(username) =>{
+const usernameValidation = async(username) =>{
   const user = await User.findOne( {username} )
   if(user){
     throw new Error ('User already exists')
   }
 }
 
-module.exports = { emailValidation, userValidation }
+module.exports = { emailValidation, usernameValidation }

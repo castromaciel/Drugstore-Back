@@ -4,6 +4,7 @@ const express = require ('express')
 const app = express()
 const usersRoute = require('../routes/users.routes')
 const loginRoute = require('../routes/login.routes')
+const productsRoute = require('../routes/prodcuts.routes')
 const port = process.env.PORT 
 
 app.use(express.json())
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/products', productsRoute)
 app.use('/users', usersRoute)
 app.use('/login', loginRoute)
 
