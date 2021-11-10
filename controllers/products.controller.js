@@ -23,6 +23,9 @@ const getPorductById = async (req,res) => {
 }
 
 const updateProductById = async (req,res) => {
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) return res.status(400).json( {errors: errors.array()} )
+  
   const updateProduct = await Product.findByIdAndUpdate(req.params.productId, req.body, {new:true})
   res.status(200).json(updateProduct)
 }
