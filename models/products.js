@@ -2,8 +2,9 @@ const { Schema, model } = require('mongoose')
 
 const product = new Schema (
   {
+    codebar: String,
     name: String,
-    marca: String,
+    brand: String,
     price: Number,
     stock: Number,
     imgURL: String
