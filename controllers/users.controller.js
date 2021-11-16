@@ -5,15 +5,16 @@ const bcrypt = require('bcrypt')
 const createUser = async (req, res) => {
   const errors = validationResult(req)
   if(!errors.isEmpty()) return res.status(400).json( {errors: errors.array()} )
-  
   const { username, email, password } = req.body
-  const newUser = new User({username, email, password})
+  
+  const img = "https://cdn-icons-png.flaticon.com/512/3239/3239279.png"
+  const newUser = new User({username, email, password, img})
   
   const salt = bcrypt.genSaltSync()
   newUser.password = bcrypt.hashSync(password, salt)
   
   const userSaved = await newUser.save()
-  res.status(201).json(userSaved)
+  res.status(201).json("created")
 }
 
 const getUsers = async (req,res) => {
@@ -27,8 +28,10 @@ const getUserById = async (req,res) => {
 }
 
 const updateUserById = async (req, res) => {
+  const user = await User.findById(req.params.userId)
+  console.log(user)
   const updateUser = await User.findByIdAndUpdate(req.params.userId, req.body, {new: true})
-  res.status(200).json(updateUser)
+  res.status(200).json({userdata:{id: user._id,email:user.email, username:user.username, img:updateUser.img}})
 }
 
 const deleteUserById = async  (req,res) =>{
@@ -37,4 +40,9 @@ const deleteUserById = async  (req,res) =>{
   res.status(204).json(deleteUser)
 }
 
-module.exports = { createUser, getUsers, getUserById, updateUserById, deleteUserById}
+const addFavourites = async (req,res) => {
+  const item = await User.findByIdAndUpdate(req.params.userId, req.body, {new: true})
+  res.status(200).json(req.params)
+}
+
+module.exports = { createUser, getUsers, getUserById, updateUserById, deleteUserById,addFavourites}
