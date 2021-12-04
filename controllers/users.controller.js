@@ -29,7 +29,6 @@ const getUserById = async (req,res) => {
 
 const updateUserById = async (req, res) => {
   const user = await User.findById(req.params.userId)
-  console.log(user)
   const updateUser = await User.findByIdAndUpdate(req.params.userId, req.body, {new: true})
   res.status(200).json({userdata:{id: user._id,email:user.email, username:user.username, img:updateUser.img}})
 }
