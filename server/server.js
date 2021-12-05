@@ -19,6 +19,6 @@ app.use((req, res, next) => {
 app.use('/products', productsRoute)
 app.use('/users', usersRoute)
 app.use('/login', loginRoute)
-app.use('/', (req, res) => res.send('Hola Mundo'))
+app.use('/', (req, res) => res.send('Hola Mundo' + process.env.CONNECTION_DB))
 
 app.listen(port, () => console.log(`Estamos escuchando el pureto ${port}`))
